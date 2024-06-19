@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { FzrsahiRepository } from './fzrsahi.repository';
 import { ApiResponse } from 'src/configs/response';
-import { PostAboutMeDto } from './dto';
+import { PostAboutMeDto, PostContactsDto, PostExperiencesDto } from './dto';
 
 @Injectable()
 export class FzrsahiService {
@@ -11,20 +11,20 @@ export class FzrsahiService {
     return await this.repository.getAboutMe();
   }
 
-  getExperiences(): ApiResponse {
-    return this.repository.getExperiences();
+  async getExperiences(): Promise<ApiResponse> {
+    return await this.repository.getExperiences();
   }
 
-  getContacts(): ApiResponse {
-    return this.repository.getContacts();
+  async getContacts(): Promise<ApiResponse> {
+    return await this.repository.getContacts();
   }
 
-  postContacts(): ApiResponse {
-    return this.repository.postContacts();
+  async postContacts(dto: PostContactsDto): Promise<ApiResponse> {
+    return this.repository.postContacts(dto);
   }
 
-  postExperiences(): ApiResponse {
-    return this.repository.postExperiences();
+  async postExperiences(dto: PostExperiencesDto): Promise<ApiResponse> {
+    return await this.repository.postExperiences(dto);
   }
 
   async postAboutMe(dto: PostAboutMeDto): Promise<ApiResponse> {

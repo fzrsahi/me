@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { FzrsahiService } from './fzrsahi.service';
 import { ApiResponse } from 'src/configs/response';
 import { ApiTags } from '@nestjs/swagger';
-import { PostAboutMeDto } from './dto';
+import { PostAboutMeDto, PostContactsDto, PostExperiencesDto } from './dto';
+import { AuthGuard } from './guard/auth.guard';
 
 export interface FzrsahiControllerInterface {
   aboutMe(): string;
@@ -19,27 +20,30 @@ export class FzrsahiController {
   }
 
   @Get('experiences')
-  getExperiences(): ApiResponse {
-    return this.service.getExperiences();
+  async getExperiences(): Promise<ApiResponse> {
+    return await this.service.getExperiences();
   }
 
   @Get('contacts')
-  getContacts(): ApiResponse {
-    return this.service.getContacts();
+  async getContacts(): Promise<ApiResponse> {
+    return await this.service.getContacts();
   }
 
+  @UseGuards(AuthGuard)
   @Post('about-me')
   async postAboutMe(@Body() dto: PostAboutMeDto): Promise<ApiResponse> {
     return await this.service.postAboutMe(dto);
   }
 
+  @UseGuards(AuthGuard)
   @Post('experiences')
-  postExperiences(): ApiResponse {
-    return this.service.postExperiences();
+  async postExperiences(@Body() dto: PostExperiencesDto): Promise<ApiResponse> {
+    return await this.service.postExperiences(dto);
   }
 
+  @UseGuards(AuthGuard)
   @Post('contacts')
-  postContacts(): ApiResponse {
-    return this.service.postContacts();
+  async postContacts(@Body() dto: PostContactsDto): Promise<ApiResponse> {
+    return await this.service.postContacts(dto);
   }
 }

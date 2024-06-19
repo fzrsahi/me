@@ -1,15 +1,26 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class PostAboutMeDto {
-  public description: string;
+  @ApiProperty()
+  description: string;
 }
 
 export class PostContactsDto {
-  public title: string;
-  public description: string;
+  @ApiProperty()
+  title: string;
+  @ApiProperty()
+  description: string;
 }
 
 export class PostExperiencesDto {
-  public title: string;
-  public company_name: string;
-  public location: string;
-  public description: string;
+  @ApiProperty()
+  title: string;
+  @ApiProperty()
+  company_name: string;
+  @ApiProperty()
+  location: string;
+  @ApiProperty()
+  description: string;
+  @ApiProperty()
+  duration: string;
 }

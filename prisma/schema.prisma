@@ -30,4 +30,5 @@ model experiences {
   company_name String
   location     String
   description  String
+  duration     String
 }

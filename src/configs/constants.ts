@@ -16,3 +16,6 @@ export const swaggerConstants = {
   tag: 'fzrsahi',
   endpoints: '/',
 };
+
+export const statusOk = 'OK';
+export const statusFail = 'FAIL';

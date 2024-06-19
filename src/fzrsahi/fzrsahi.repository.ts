@@ -1,60 +1,96 @@
 import { Injectable } from '@nestjs/common';
 import { ApiResponse } from 'src/configs/response';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PostAboutMeDto } from './dto';
-import { about_me } from '@prisma/client';
+import { PostAboutMeDto, PostContactsDto, PostExperiencesDto } from './dto';
+import { about_me, contacts, experiences } from '@prisma/client';
+import { statusOk } from 'src/configs';
 
 @Injectable()
 export class FzrsahiRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async getAboutMe(): Promise<ApiResponse> {
-    const data: about_me = await this.prisma.about_me.findFirst();
+    try {
+      const data: about_me = await this.prisma.about_me.findFirst();
 
-    return {
-      status: 'OK',
-      data: data.description,
-    };
+      return {
+        status: statusOk,
+        data: data.description,
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  getExperiences(): ApiResponse {
-    return {
-      status: 'OK',
-      data: 'experiences',
-    };
+  async getExperiences(): Promise<ApiResponse> {
+    try {
+      const data: experiences[] = await this.prisma.experiences.findMany();
+
+      return {
+        status: statusOk,
+        data,
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  getContacts(): ApiResponse {
-    return {
-      status: 'OK',
-      data: 'ok',
-    };
+  async getContacts(): Promise<ApiResponse> {
+    try {
+      const data: contacts[] = await this.prisma.contacts.findMany();
+      return {
+        status: statusOk,
+        data,
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  postContacts(): ApiResponse {
-    return {
-      status: 'OK',
-      data: 'ok',
-    };
+  async postContacts(dto: PostContactsDto): Promise<ApiResponse> {
+    try {
+      const data: contacts = await this.prisma.contacts.create({
+        data: {
+          ...dto,
+        },
+      });
+
+      return {
+        status: statusOk,
+        data,
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  postExperiences(): ApiResponse {
-    return {
-      data: 'OK',
-      status: 'OK',
-    };
-  }
-
-  async postAboutMe(dto: PostAboutMeDto): Promise<ApiResponse> {
-    const data: about_me = await this.prisma.about_me.create({
+  async postExperiences(dto: PostExperiencesDto): Promise<ApiResponse> {
+    const data: experiences = await this.prisma.experiences.create({
       data: {
-        description: dto.description,
+        ...dto,
       },
     });
 
     return {
-      status: 'OK',
+      status: statusOk,
       data,
     };
+  }
+
+  async postAboutMe(dto: PostAboutMeDto): Promise<ApiResponse> {
+    try {
+      const data: about_me = await this.prisma.about_me.create({
+        data: {
+          description: dto.description,
+        },
+      });
+
+      return {
+        status: statusOk,
+        data,
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
