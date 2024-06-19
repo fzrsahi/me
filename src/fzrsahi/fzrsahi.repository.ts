@@ -9,4 +9,18 @@ export class FzrsahiRepository {
       data: 'me',
     };
   }
+
+  getExperiences(): ApiResponse {
+    return {
+      status: 'OK',
+      data: 'experiences',
+    };
+  }
+
+  getContacts(): ApiResponse {
+    return {
+      status: 'OK',
+      data: 'ok',
+    };
+  }
 }
