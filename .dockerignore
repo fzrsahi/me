@@ -1,0 +1,46 @@
+# Node modules
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+pids
+*.pid
+*.seed
+
+# Dependency directories
+node_modules
+bower_components
+
+# Build directories
+dist
+build
+
+# Environment variables
+.env
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# IDE/Editor directories and files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Prisma
+prisma/migrations
+prisma/dev.db
+
+# Miscellaneous
+.git
+.gitignore

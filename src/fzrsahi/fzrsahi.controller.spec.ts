@@ -1,18 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { FzrsahiController } from './fzrsahi.controller';
+import { FzrsahiService } from './fzrsahi.service';
+import { FzrsahiRepository } from './fzrsahi.repository';
+import { ApiResponse } from 'src/configs';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 describe('FzrsahiController', () => {
-  let controller: FzrsahiController;
+  let fzrsahiController: FzrsahiController;
+  let fzrsahiService: FzrsahiService;
+  let fzrsahiRepository: FzrsahiRepository;
+  let prisma : PrismaService
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [FzrsahiController],
-    }).compile();
-
-    controller = module.get<FzrsahiController>(FzrsahiController);
+    fzrsahiRepository = new FzrsahiRepository();
+    fzrsahiService = new FzrsahiService(fzrsahiRepository);
+    fzrsahiController = new FzrsahiController(fzrsahiService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('about-me', () => {
+    it('should return about me', async () => {
+      const result: ApiResponse = {
+        status: 'OK',
+        data: 'ok',
+      };
+      jest.spyOn(fzrsahiService, 'aboutMe').mockImplementation(() => result);
+      expect(await fzrsahiController.aboutMe()).toBe(result);
+    });
   });
 });

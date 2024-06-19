@@ -1,6 +1,6 @@
 export interface ApiResponse {
   status: Status;
-  data: string;
+  data: any;
 }
 
 type Status = 'OK' | 'FAIL';
