@@ -2,19 +2,37 @@ version: '3.7'
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3009:3000"
+    environment:
+      - PORT=3000
+      - SECRET_AUTH_KEY=123
+      - APP_MODE=development
+      - HIDE_POST_ENDPOINTS=true
+      - DATABASE_URL=postgresql://fzrsahi:password@db:5432/me?schema=public
     depends_on:
-      - db
+      db:
+        condition: service_started
+    entrypoint:
+      [
+        "sh",
+        "-c",
+        "npx prisma migrate deploy && npm run start:prod"
+      ]
 
   db:
-    image: postgres:15
+    image: postgres:alpine3.18
     environment:
       POSTGRES_USER: fzrsahi
-      POSTGRES_PASSWORD: fzrsahi123
+      POSTGRES_PASSWORD: password
       POSTGRES_DB: me
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

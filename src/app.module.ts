@@ -4,6 +4,7 @@ import { FzrsahiModule } from './fzrsahi/fzrsahi.module';
 import envConfigs from './configs/env.config';
 import { SwaggerModule } from '@nestjs/swagger';
 import { PrismaModule } from './prisma/prisma.module';
+import { HelpersModule } from './helpers/helpers.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { PrismaModule } from './prisma/prisma.module';
     }),
     FzrsahiModule,
     PrismaModule,
+    HelpersModule,
   ],
   controllers: [],
   providers: [],

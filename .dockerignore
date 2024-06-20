@@ -19,7 +19,7 @@ dist
 build
 
 # Environment variables
-.env
+.env*
 
 # Docker files
 Dockerfile
@@ -37,9 +37,6 @@ docker-compose.yml
 .DS_Store
 Thumbs.db
 
-# Prisma
-prisma/migrations
-prisma/dev.db
 
 # Miscellaneous
 .git
