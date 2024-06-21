@@ -9,88 +9,39 @@ import { statusOk } from 'src/configs';
 export class FzrsahiRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAboutMe(): Promise<ApiResponse> {
-    try {
-      const data: about_me = await this.prisma.about_me.findFirst();
-
-      return {
-        status: statusOk,
-        data: data.description,
-      };
-    } catch (error) {
-      console.error(error);
-    }
+  async getAboutMe(): Promise<about_me> {
+    return await this.prisma.about_me.findFirst();
   }
 
-  async getExperiences(): Promise<ApiResponse> {
-    try {
-      const data: experiences[] = await this.prisma.experiences.findMany();
-
-      return {
-        status: statusOk,
-        data,
-      };
-    } catch (error) {
-      console.error(error);
-    }
+  async getExperiences(): Promise<experiences[]> {
+    return await this.prisma.experiences.findMany();
   }
 
-  async getContacts(): Promise<ApiResponse> {
-    try {
-      const data: contacts[] = await this.prisma.contacts.findMany();
-      return {
-        status: statusOk,
-        data,
-      };
-    } catch (error) {
-      console.error(error);
-    }
+  async getContacts(): Promise<contacts[]> {
+    return await this.prisma.contacts.findMany();
   }
 
-  async postContacts(dto: PostContactsDto): Promise<ApiResponse> {
-    try {
-      const data: contacts = await this.prisma.contacts.create({
-        data: {
-          ...dto,
-        },
-      });
-
-      return {
-        status: statusOk,
-        data,
-      };
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async postExperiences(dto: PostExperiencesDto): Promise<ApiResponse> {
-    const data: experiences = await this.prisma.experiences.create({
+  async postContacts(dto: PostContactsDto): Promise<contacts> {
+    return await this.prisma.contacts.create({
       data: {
         ...dto,
       },
     });
-
-    return {
-      status: statusOk,
-      data,
-    };
   }
 
-  async postAboutMe(dto: PostAboutMeDto): Promise<ApiResponse> {
-    try {
-      const data: about_me = await this.prisma.about_me.create({
-        data: {
-          description: dto.description,
-        },
-      });
+  async postExperiences(dto: PostExperiencesDto): Promise<experiences> {
+    return await this.prisma.experiences.create({
+      data: {
+        ...dto,
+      },
+    });
+  }
 
-      return {
-        status: statusOk,
-        data,
-      };
-    } catch (error) {
-      console.error(error);
-    }
+  async postAboutMe(dto: PostAboutMeDto): Promise<about_me> {
+    return await this.prisma.about_me.create({
+      data: {
+        description: dto.description,
+      },
+    });
   }
 }

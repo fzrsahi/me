@@ -4,10 +4,11 @@ import { FzrsahiService } from './fzrsahi.service';
 import { FzrsahiRepository } from './fzrsahi.repository';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { HelpersModule } from 'src/helpers/helpers.module';
+import { ExceptionsModule } from 'src/exceptions/exceptions.module';
 
 @Module({
   controllers: [FzrsahiController],
   providers: [FzrsahiService, FzrsahiRepository],
-  imports: [PrismaModule, HelpersModule],
+  imports: [PrismaModule, HelpersModule, ExceptionsModule],
 })
 export class FzrsahiModule {}

@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { FzrsahiModule } from './fzrsahi/fzrsahi.module';
 import envConfigs from './configs/env.config';
-import { SwaggerModule } from '@nestjs/swagger';
 import { PrismaModule } from './prisma/prisma.module';
 import { HelpersModule } from './helpers/helpers.module';
+import { ExceptionsModule } from './exceptions/exceptions.module';
 
 @Module({
   imports: [
@@ -14,6 +14,7 @@ import { HelpersModule } from './helpers/helpers.module';
     FzrsahiModule,
     PrismaModule,
     HelpersModule,
+    ExceptionsModule,
   ],
   controllers: [],
   providers: [],
