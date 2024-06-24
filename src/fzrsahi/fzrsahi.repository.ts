@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { ApiResponse } from 'src/configs/response';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PostAboutMeDto, PostContactsDto, PostExperiencesDto } from './dto';
 import { about_me, contacts, experiences } from '@prisma/client';
-import { statusOk } from 'src/configs';
 
 @Injectable()
 export class FzrsahiRepository {

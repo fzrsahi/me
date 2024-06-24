@@ -21,7 +21,7 @@ import { about_me, contacts, experiences } from '@prisma/client';
 import { ExceptionsFilterService } from 'src/exceptions/exceptions.service';
 
 @ApiTags(swaggerConstants.tag)
-@UseFilters(ExceptionsFilterService)
+@UseFilters( ExceptionsFilterService)
 @Controller('fzrsahi')
 export class FzrsahiController {
   constructor(

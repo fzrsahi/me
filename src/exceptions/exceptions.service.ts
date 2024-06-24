@@ -24,6 +24,8 @@ export class ExceptionsFilterService implements ExceptionFilter {
       status: statusFail,
       data: exception.message,
     });
+
+    console.log('awikwok');
   }
 
   handlerError(error: HttpException) {

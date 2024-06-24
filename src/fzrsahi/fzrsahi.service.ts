@@ -5,7 +5,6 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { FzrsahiRepository } from './fzrsahi.repository';
-import { ApiResponse } from 'src/configs/response';
 import { PostAboutMeDto, PostContactsDto, PostExperiencesDto } from './dto';
 import { about_me, contacts, experiences } from '@prisma/client';
 import { ExceptionsFilterService } from 'src/exceptions/exceptions.service';
