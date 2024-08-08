@@ -13,5 +13,14 @@ pipeline {
                 '''
             }
         }
+
+        stage('check docker status') {
+            steps {
+                sh '''
+            docker ps
+            docker images
+                '''
+            }
+        }
     }
 }
