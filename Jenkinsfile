@@ -26,7 +26,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'docker-compose build'
+                    sh 'docker compose build'
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh 'docker-compose run --rm app npm run test'
+                    sh 'docker compose run --rm app npm run test'
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker-compose up -d'
+                    sh 'docker compose up -d'
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
     post {
         always {
             script {
-                sh 'docker-compose down'
+                sh 'docker compose down'
             }
         }
     }
