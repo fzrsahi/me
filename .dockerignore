@@ -18,6 +18,8 @@ bower_components
 dist
 build
 
+# Environment variables
+.env*
 
 # Docker files
 Dockerfile
