@@ -16,8 +16,6 @@ services:
     depends_on:
       db:
         condition: service_started
-    # entrypoint: [ "sh", "-c", "npx prisma migrate deploy" ]
-    # entrypoint: [ "sh", "-c", "npm run test" ]
 
   db:
     image: postgres:alpine3.18
