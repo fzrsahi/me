@@ -13,4 +13,4 @@ RUN npm run build
 
 EXPOSE 3009
 
-CMD ["start:prod"]
+CMD ["npm", "run", "start:prod"]
