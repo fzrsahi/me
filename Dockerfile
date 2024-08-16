@@ -13,4 +13,5 @@ RUN npm run build
 
 EXPOSE 3009
 
-CMD ["npm", "run", "start:prod"]
+# ENTRYPOINT ["npm", "run"]
+CMD ["start:prod"]
