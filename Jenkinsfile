@@ -32,7 +32,7 @@ pipeline {
                     // Deploy versi baru menggunakan Docker Compose
                     sh """
                     export IMAGE_TAG=${VERSION}
-                    docker-compose -f docker-compose.yaml up -d --build
+                    docker compose -f docker compose.yaml up -d --build
                     """
                 }
             }
