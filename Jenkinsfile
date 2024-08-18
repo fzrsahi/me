@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Extract version from package.json
-        VERSION = sh(script: "jq -r '.version' package.json", returnStdout: true).trim()
+        VERSION = '1.0.0'
         IMAGE_NAME = "me-app:${VERSION}"
     }
 
