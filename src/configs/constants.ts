@@ -21,7 +21,7 @@ export const appConfig: appConfigInterface = {
 //Swagger
 export const swaggerConstants = {
   title: 'Fazrul Anugrah Sahi Personal Web',
-  description: 'This is my personal web. but, in backend style, Update 3.0',
+  description: 'This is my personal web. but, in backend style',
   version: '1.0',
   tag: 'Fazrul Anugrah Sahi Endpoints',
   endpoints: '/',
