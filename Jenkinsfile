@@ -1,18 +1,35 @@
 pipeline {
     agent any
 
-    environment {
-        // Extract version from package.json
-        VERSION = '1.0.0'
-        IMAGE_NAME = "me-app:${VERSION}"
-    }
-
     stages {
+        stage('verify tooling') {
+            steps {
+                sh '''
+            docker version
+            docker info
+            docker info
+            docker compose version
+            curl --version
+                '''
+            }
+        }
+
+        stage('check docker status') {
+            steps {
+                sh '''
+            docker ps
+            docker images
+                '''
+            }
+        }
+
         stage('Build') {
             steps {
                 script {
-                    // Build Docker image dengan tag versi
-                    sh "docker build -t ${IMAGE_NAME} ."
+                    sh '''
+            docker compose build
+            docker compose run --rm app npx prisma migrate deploy
+                '''
                 }
             }
         }
@@ -29,22 +46,18 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Deploy versi baru menggunakan Docker Compose
-                    sh """
-                    export IMAGE_TAG=${VERSION}
                     sh 'docker compose up -d'
-                    """
                 }
             }
         }
     }
 
     post {
-        success {
-            echo "Deployment of version ${VERSION} successful!"
-        }
         always {
-            cleanWs() // Clean up workspace
+            script {
+                // sh 'docker compose down'
+                echo 'OK'
+            }
         }
     }
 }
