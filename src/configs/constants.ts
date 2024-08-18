@@ -22,7 +22,7 @@ export const appConfig: appConfigInterface = {
 export const swaggerConstants = {
   title: 'Fazrul Anugrah Sahi Personal Web',
   description: 'This is my personal web. but, in backend style',
-  version: '1.0',
+  version: '1.1',
   tag: 'Fazrul Anugrah Sahi Endpoints',
   endpoints: '/',
 };
