@@ -1,35 +1,18 @@
 pipeline {
     agent any
 
+    environment {
+        // Extract version from package.json
+        VERSION = sh(script: "jq -r '.version' package.json", returnStdout: true).trim()
+        IMAGE_NAME = "me-app:${VERSION}"
+    }
+
     stages {
-        stage('verify tooling') {
-            steps {
-                sh '''
-            docker version
-            docker info
-            docker info
-            docker compose version
-            curl --version
-                '''
-            }
-        }
-
-        stage('check docker status') {
-            steps {
-                sh '''
-            docker ps
-            docker images
-                '''
-            }
-        }
-
         stage('Build') {
             steps {
                 script {
-                    sh '''
-            docker compose build
-            docker compose run --rm app npx prisma migrate deploy
-                '''
+                    // Build Docker image dengan tag versi
+                    sh "docker build -t ${IMAGE_NAME} ."
                 }
             }
         }
@@ -46,18 +29,25 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker compose up -d'
+                    // Deploy versi baru menggunakan Docker Compose
+                    sh """
+                    export IMAGE_TAG=${VERSION}
+                    docker-compose -f docker-compose.yaml up -d --build
+                    """
                 }
             }
         }
     }
 
     post {
+        success {
+            echo "Deployment of version ${VERSION} successful!"
+        }
+        failure {
+            echo 'Deployment failed! Consider rolling back.'
+        }
         always {
-            script {
-                // sh 'docker compose down'
-                echo 'OK'
-            }
+            cleanWs() // Clean up workspace
         }
     }
 }
