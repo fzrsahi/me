@@ -32,7 +32,7 @@ pipeline {
                     // Deploy versi baru menggunakan Docker Compose
                     sh """
                     export IMAGE_TAG=${VERSION}
-                    docker compose -f docker compose.yaml up -d --build
+                    sh 'docker compose up -d'
                     """
                 }
             }
@@ -42,9 +42,6 @@ pipeline {
     post {
         success {
             echo "Deployment of version ${VERSION} successful!"
-        }
-        failure {
-            echo 'Deployment failed! Consider rolling back.'
         }
         always {
             cleanWs() // Clean up workspace
