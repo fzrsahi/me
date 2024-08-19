@@ -5,6 +5,10 @@ import envConfigs from './configs/env.config';
 import { PrismaModule } from './prisma/prisma.module';
 import { HelpersModule } from './helpers/helpers.module';
 import { ExceptionsModule } from './exceptions/exceptions.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { FzrsahiController } from './fzrsahi/fzrsahi.controller';
+import { APP_GUARD } from '@nestjs/core';
+import { appConfig } from './configs';
 
 @Module({
   imports: [
@@ -15,8 +19,19 @@ import { ExceptionsModule } from './exceptions/exceptions.module';
     PrismaModule,
     HelpersModule,
     ExceptionsModule,
+    ThrottlerModule.forRoot([
+      {
+        ttl: appConfig.rateLimiterTtl,
+        limit: appConfig.rateLimiterLimit,
+      },
+    ]),
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

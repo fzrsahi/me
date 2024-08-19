@@ -19,9 +19,10 @@ import {
 } from 'src/configs';
 import { about_me, contacts, experiences } from '@prisma/client';
 import { ExceptionsFilterService } from 'src/exceptions/exceptions.service';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @ApiTags(swaggerConstants.tag)
-@UseFilters( ExceptionsFilterService)
+@UseFilters(ExceptionsFilterService)
 @Controller('fzrsahi')
 export class FzrsahiController {
   constructor(
@@ -69,6 +70,7 @@ export class FzrsahiController {
     }
   }
 
+  @SkipThrottle()
   @UseGuards(AuthGuard)
   @ApiExcludeEndpoint(appConfig.hidePostEndpoints)
   @ApiBasicAuth(swaggerAuthNameConstants)
@@ -85,6 +87,7 @@ export class FzrsahiController {
     }
   }
 
+  @SkipThrottle()
   @UseGuards(AuthGuard)
   @ApiExcludeEndpoint(appConfig.hidePostEndpoints)
   @ApiBasicAuth(swaggerAuthNameConstants)
@@ -101,6 +104,7 @@ export class FzrsahiController {
     }
   }
 
+  @SkipThrottle()
   @UseGuards(AuthGuard)
   @ApiExcludeEndpoint(appConfig.hidePostEndpoints)
   @ApiBasicAuth(swaggerAuthNameConstants)
