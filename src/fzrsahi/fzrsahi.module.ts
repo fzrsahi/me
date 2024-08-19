@@ -10,5 +10,6 @@ import { ExceptionsModule } from 'src/exceptions/exceptions.module';
   controllers: [FzrsahiController],
   providers: [FzrsahiService, FzrsahiRepository],
   imports: [PrismaModule, HelpersModule, ExceptionsModule],
+  exports : [FzrsahiRepository]
 })
 export class FzrsahiModule {}

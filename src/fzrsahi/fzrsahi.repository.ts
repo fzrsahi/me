@@ -42,4 +42,12 @@ export class FzrsahiRepository {
       },
     });
   }
+
+  async postLogs(data: any): Promise<void> {
+    await this.prisma.logs.create({
+      data: {
+        data,
+      },
+    });
+  }
 }

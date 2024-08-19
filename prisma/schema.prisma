@@ -32,3 +32,8 @@ model experiences {
   description  String
   duration     String
 }
+
+model logs {
+  id   Int  @id @default(autoincrement())
+  data Json
+}

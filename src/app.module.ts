@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { FzrsahiModule } from './fzrsahi/fzrsahi.module';
 import envConfigs from './configs/env.config';
@@ -9,6 +9,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { FzrsahiController } from './fzrsahi/fzrsahi.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { appConfig } from './configs';
+import { AuditMiddleware } from './middleware/audit.middleware';
 
 @Module({
   imports: [
@@ -34,4 +35,8 @@ import { appConfig } from './configs';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuditMiddleware).forRoutes(FzrsahiController);
+  }
+}
